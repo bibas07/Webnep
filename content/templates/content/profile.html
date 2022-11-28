@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% if infos %}
+
+Username: {{infos.user_name}} <br>
+First Name: {{infos.first_name}} <br>
+Last Name: {{infos.last_name}} <br>
+Phone Number: {{infos.phone_number}} <br>
+Address: {{infos.address}} <br>
+
+{% else %}
+<h4> You have not setup your profile</h4>
+{% endif %}
+<a href="{% url 'update-profile' %}">Edit Profile </a>
+{% endblock %}
