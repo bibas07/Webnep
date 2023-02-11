@@ -1,14 +1,29 @@
 {% extends "blog/base.html" %}
+{% load static %}
 {% block content %}
+<div class="container">
 {% if user.is_authenticated %}
 Username: {{user.username}} <br>
 <br>
 <h5>Post Something here</h5>
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {{form.as_p}}
 <button type="submit"> Post </button>
 </form>
+<br> 
+<a href="{% url 'file-upload' %}"> Upload File </a><br><br>
+{% if documents %}
+{% for doc in documents %}
+
+<h6> {{doc.aurthur}} </h6>
+<img src="{{doc.document.url}}" height=120 width=200> <br>
+
+ <a  href="{{doc.document.url}}"> View </a><br><br>
+
+{% endfor %}
+{% endif %}
+
 {% if posts %}
 {% for post in posts %}
 <h2>{{post.aurthur}}</h2> <br>
@@ -17,10 +32,13 @@ Username: {{user.username}} <br>
 <a href="{% url 'post_delete' post.id %}">Delete</a>
 <br><br>
 {% endfor %}
+{% else %}
+No post found yet
 {% endif %}
 
 {% else %}
 You must login first <a href="{% url 'login' %}"> Login </a>
 {% endif %}
 
+</div>
 {% endblock %}

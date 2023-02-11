@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
+from captcha.fields import CaptchaField
 class RegisterUser(UserCreationForm):
     email = forms.EmailField()
 
@@ -15,3 +16,6 @@ class ProfileForm(forms.ModelForm):
         model = UserProfile
         fields = "__all__"
         exclude = ['user_name']
+
+class CaptchaRegForm(forms.Form):
+    captcha = CaptchaField()

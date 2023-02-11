@@ -2,8 +2,9 @@
 {% block content %}
 <form method="POST">
 {% csrf_token %}
-{{form.as_p}}
-<button type="submit"> Login </button>
+{{form.as_p}} <br>
+{{captcha_form.as_p}}
+<button type="submit"> Register </button>
 </form>
 {% endblock %}
-<a href="{% url 'login' %}">Create An Account </a>
+<a href="{% url 'login' %}">Login </a>

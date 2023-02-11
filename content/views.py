@@ -3,6 +3,7 @@ from .forms import RegisterUser, ProfileForm
 from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .forms import CaptchaRegForm
 # Create your views here.
 
 def register(request):
@@ -10,13 +11,18 @@ def register(request):
         'title':"Register"
     }
     if request.method == "POST":
+        captcha_form = CaptchaRegForm(request.POST)
         form = RegisterUser(request.POST)
-        if form.is_valid():
+        if form.is_valid() and captcha_form.is_valid():
+            human = True
             form.save()
+
             return redirect("dashboard")
     else:
         form = RegisterUser()
+        captcha_form = CaptchaRegForm()                        
     context["form"] = form
+    context["captcha_form"] = captcha_form
     return render(request, "content/register.html", context)
 
 def profileView(request):
