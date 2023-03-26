@@ -36,6 +36,15 @@ def postDelete(request, id):
         return HttpResponseRedirect(reverse(dashboardView))
     else:
         return redirect("dashboard")
+    
+
+def docDelete(request, id):
+    posts = Document.objects.get(id=id)
+    if posts.aurthur == request.user:
+        posts.delete()
+        return HttpResponseRedirect(reverse(dashboardView))
+    else:
+        return redirect("dashboard")
 
 def model_form_upload(request):
     if request.method == 'POST':

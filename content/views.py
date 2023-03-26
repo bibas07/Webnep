@@ -14,7 +14,6 @@ def register(request):
         captcha_form = CaptchaRegForm(request.POST)
         form = RegisterUser(request.POST)
         if form.is_valid() and captcha_form.is_valid():
-            human = True
             form.save()
 
             return redirect("dashboard")
